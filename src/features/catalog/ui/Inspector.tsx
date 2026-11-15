@@ -1,6 +1,16 @@
 import { Trash2, SlidersHorizontal } from "lucide-react";
-import { labels, type Element } from "../../../shared/document";
+import {
+  labels,
+  type Element,
+  type Polarization,
+} from "../../../shared/document";
 import { parameters } from "../lib/parameters";
+const polarizationOptions: { value: Polarization; label: string }[] = [
+  { value: "unpolarized", label: "自然光（非偏振）" },
+  { value: "linear", label: "线偏振" },
+  { value: "circular", label: "圆偏振" },
+  { value: "partial", label: "部分偏振" },
+];
 export function Inspector({
   element,
   onUpdate,
@@ -56,6 +66,49 @@ export function Inspector({
           </label>
         ))}
       </div>
+      {element.kind === "source" && (
+        <label className="parameter">
+          <span>
+            偏振态
+            <b>
+              <select
+                aria-label="偏振态"
+                value={element.polarization}
+                onChange={(e) =>
+                  onUpdate({ polarization: e.target.value as Polarization })
+                }
+              >
+                {polarizationOptions.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+            </b>
+          </span>
+        </label>
+      )}
+      {element.kind === "source" && element.polarization === "circular" && (
+        <label className="parameter">
+          <span>
+            旋向
+            <b>
+              <select
+                aria-label="圆偏振旋向"
+                value={element.polHandedness < 0 ? "left" : "right"}
+                onChange={(e) =>
+                  onUpdate({
+                    polHandedness: e.target.value === "left" ? -1 : 1,
+                  })
+                }
+              >
+                <option value="right">右旋</option>
+                <option value="left">左旋</option>
+              </select>
+            </b>
+          </span>
+        </label>
+      )}
       {parameters(element).map((p) => (
         <label className="parameter" key={p.key}>
           <span>

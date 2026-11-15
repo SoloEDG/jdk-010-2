@@ -26,7 +26,7 @@ export function parameters(e: Element): Parameter[] {
       unit: "mm",
     },
   ];
-  if (e.kind === "source")
+  if (e.kind === "source") {
     common.push(
       {
         key: "wavelength",
@@ -47,6 +47,25 @@ export function parameters(e: Element): Parameter[] {
         unit: "W",
       },
     );
+    if (e.polarization === "linear" || e.polarization === "partial")
+      common.push({
+        key: "polAngle",
+        label: "偏振方向（自竖直起算）",
+        min: 0,
+        max: 180,
+        step: 1,
+        unit: "°",
+      });
+    if (e.polarization === "partial")
+      common.push({
+        key: "polDegree",
+        label: "偏振度",
+        min: 0,
+        max: 1,
+        step: 0.01,
+        unit: "",
+      });
+  }
   if (e.kind === "lens")
     common.push({
       key: "focal",
@@ -65,5 +84,33 @@ export function parameters(e: Element): Parameter[] {
       step: 0.01,
       unit: "",
     });
+  if (e.kind === "polarizer")
+    common.push({
+      key: "axis",
+      label: "透光轴（自竖直起算）",
+      min: 0,
+      max: 180,
+      step: 1,
+      unit: "°",
+    });
+  if (e.kind === "waveplate")
+    common.push(
+      {
+        key: "axis",
+        label: "快轴方向（自竖直起算）",
+        min: 0,
+        max: 180,
+        step: 1,
+        unit: "°",
+      },
+      {
+        key: "retardance",
+        label: "相位延迟（90=λ/4，180=λ/2）",
+        min: 1,
+        max: 360,
+        step: 1,
+        unit: "°",
+      },
+    );
   return common;
 }

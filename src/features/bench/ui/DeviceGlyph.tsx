@@ -8,6 +8,11 @@ export function DeviceGlyph({
   selected: boolean;
 }) {
   const color = selected ? "#a7f070" : "#89a3b7";
+  const isPolElement = e.kind === "polarizer" || e.kind === "waveplate";
+  // 轴方向指示：自台面法线（屏幕上方）起算 axis 度，与器件摆放角度无关
+  const a = (e.axis * Math.PI) / 180,
+    ax = Math.sin(a) * 15,
+    ay = -Math.cos(a) * 15;
   return (
     <g>
       {selected && (
@@ -69,6 +74,42 @@ export function DeviceGlyph({
                 strokeWidth="3"
               />
             </>
+          ) : e.kind === "polarizer" ? (
+            <>
+              <line
+                x1={-e.size / 2}
+                x2={e.size / 2}
+                stroke="#f5b267"
+                strokeWidth="4"
+              />
+              <line
+                x1={-e.size / 2}
+                x2={e.size / 2}
+                y1="4"
+                y2="4"
+                stroke="#7a5a35"
+                strokeWidth="3"
+              />
+            </>
+          ) : e.kind === "waveplate" ? (
+            <>
+              <line
+                x1={-e.size / 2}
+                x2={e.size / 2}
+                y1="-3"
+                y2="-3"
+                stroke="#7ee0c8"
+                strokeWidth="3"
+              />
+              <line
+                x1={-e.size / 2}
+                x2={e.size / 2}
+                y1="3"
+                y2="3"
+                stroke="#4a8a7a"
+                strokeWidth="3"
+              />
+            </>
           ) : (
             <>
               <line
@@ -87,6 +128,24 @@ export function DeviceGlyph({
               />
             </>
           )}
+        </g>
+      )}
+      {isPolElement && (
+        <g pointerEvents="none">
+          <line
+            x1={e.x - ax}
+            y1={e.y - ay}
+            x2={e.x + ax}
+            y2={e.y + ay}
+            stroke={e.kind === "polarizer" ? "#ffd9a0" : "#b8f5e3"}
+            strokeWidth="2"
+          />
+          <circle
+            cx={e.x + ax}
+            cy={e.y + ay}
+            r="2.4"
+            fill={e.kind === "polarizer" ? "#ffd9a0" : "#b8f5e3"}
+          />
         </g>
       )}
       <circle cx={e.x} cy={e.y} r="4" fill={color} />

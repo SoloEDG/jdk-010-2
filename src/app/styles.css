@@ -497,6 +497,95 @@ select {
   font-size: 10px;
   color: #6b7e8d;
 }
+.pol-section {
+  margin-top: 16px;
+  border-top: 1px solid #28313a;
+  padding-top: 12px;
+}
+.pol-chart {
+  display: grid;
+  grid-template-columns: 96px 1fr 90px;
+  gap: 20px;
+  align-items: center;
+  margin-top: 10px;
+}
+.pol-ellipse {
+  width: 96px;
+  height: 96px;
+  background: #151d24;
+  border: 1px solid #26313b;
+  border-radius: 6px;
+}
+.pol-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+.pol-bar {
+  display: grid;
+  grid-template-columns: 38px 1fr 62px;
+  align-items: center;
+  gap: 8px;
+  font-size: 9px;
+  color: #8193a1;
+}
+.pol-bar-track {
+  height: 7px;
+  background: #1a232b;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.pol-bar-track i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.15s;
+}
+.pol-bar em {
+  font-style: normal;
+  text-align: right;
+  color: #a7b6c2;
+  font-variant-numeric: tabular-nums;
+}
+.pol-summary {
+  text-align: center;
+  border-left: 1px solid #2b353e;
+  padding-left: 16px;
+}
+.pol-summary small {
+  display: block;
+  color: #8193a1;
+  font-size: 9px;
+}
+.pol-summary strong {
+  display: block;
+  font-size: 19px;
+  font-weight: 500;
+  margin-top: 2px;
+  color: #b5eb78;
+  font-variant-numeric: tabular-nums;
+}
+.device-icon.polarizer {
+  color: #f5c98a;
+  background: #33291d;
+  border-color: #54452e;
+}
+.device-icon.waveplate {
+  color: #8ae0c8;
+  background: #1d2e2a;
+  border-color: #2e4a41;
+}
+.object-list button > i.polarizer {
+  background: #f5b267;
+}
+.object-list button > i.waveplate {
+  background: #7ee0c8;
+}
+.inspector .parameter select {
+  font-size: 10px;
+  padding: 3px 5px;
+}
 .inspector {
   min-height: 265px;
 }

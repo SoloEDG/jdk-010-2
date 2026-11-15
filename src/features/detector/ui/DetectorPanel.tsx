@@ -1,6 +1,7 @@
 import type { Element } from "../../../shared/document";
 import type { Measurement } from "../lib/measurement";
 import { EnergyChart } from "./EnergyChart";
+import { PolarizationChart } from "./PolarizationChart";
 export function DetectorPanel({
   screen,
   screens,
@@ -76,6 +77,12 @@ export function DetectorPanel({
             </strong>
           </div>
         </div>
+      </div>
+      <div className="pol-section">
+        <div className="section-title">
+          偏振分析 <span>Stokes / 非相干叠加</span>
+        </div>
+        <PolarizationChart measurement={m} />
       </div>
     </section>
   );
